@@ -1,0 +1,7 @@
+services:
+  snowplow-micro:
+    image: snowplow/snowplow-micro:2.1.0-distroless
+    ports:
+      - "9090:9090"
+    environment:
+      - MICROSERVICE_PORT=9090
