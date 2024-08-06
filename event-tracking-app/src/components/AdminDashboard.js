@@ -1,6 +1,9 @@
 // src/components/AdminDashboard.js
 import React, { useEffect, useState } from 'react';
-import { fetchEvents, fetchFilteredEvents } from '../services/api';
+import { fetchEvents } from '../services/api';
+import { trackPageViewEvent, trackCustomEvent, useTrackPageView } from '../utils/tracker';
+
+import Loader from './Loader';
 
 const AdminDashboard = () => {
     const [events, setEvents] = useState([]);
@@ -11,9 +14,13 @@ const AdminDashboard = () => {
     const [eventTypes, setEventTypes] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const eventsPerPage = 10;
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        trackPageViewEvent("AdminScreen");
         const getEvents = async () => {
+            setLoading(true);
+            setEvents([]);
             const data = await fetchEvents();
             setEvents(data);
             setFilteredEvents(data); // Set filteredEvents to all events initially
@@ -21,6 +28,7 @@ const AdminDashboard = () => {
             // Extract distinct event types for dropdown
             const types = Array.from(new Set(data.map(event => event.event_values)));
             setEventTypes(types);
+            setLoading(false);
         };
         getEvents();
     }, []);
@@ -96,9 +104,6 @@ const AdminDashboard = () => {
                         onChange={(e) => setEndDate(e.target.value)} 
                     />
                 </div>
-                <div className="col-md-2 d-flex align-items-end">
-                    <button className="btn btn-primary" onClick={() => setCurrentPage(1)}>Filter</button>
-                </div>
             </div>
             <table className="table table-bordered">
                 <thead>
@@ -124,6 +129,7 @@ const AdminDashboard = () => {
                     ))}
                 </tbody>
             </table>
+            {loading ? <Loader/> : '' }
             <nav>
                 <ul className="pagination">
                     {pageNumbers.map(number => (

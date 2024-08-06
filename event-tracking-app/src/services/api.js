@@ -30,3 +30,13 @@ export const fetchFilteredEvents = async (eventType, startDate, endDate) => {
     });
     return response.data;
 };
+
+export const storeEvent = async (eventData) => {
+    try {
+        const response = await axios.post(`${API_URL}/events`, eventData);
+        return response.data;
+    } catch (error) {
+        console.error('Error storing event data:', error);
+        throw error;
+    }
+};

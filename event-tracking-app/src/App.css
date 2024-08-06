@@ -12,38 +12,6 @@ h2 {
   margin-bottom: 30px;
 }
 
-.navbar {
-  background-color: #343a40;
-  padding: 10px;
-}
-
-.navbar a {
-  color: #ffffff;
-  text-decoration: none;
-  margin-right: 20px;
-  font-size: 20px;
-}
-
-.navbar a:hover {
-  color: #cccccc;
-}
-
-.header {
-  text-align: center;
-  padding: 20px;
-  background-color: #007bff;
-  color: white;
-}
-
-.header h1 {
-  margin: 0;
-  font-size: 36px;
-}
-
-.form-group label {
-  font-weight: bold;
-}
-
 .table {
   margin-top: 20px;
 }
@@ -66,13 +34,18 @@ h2 {
   color: #0056b3;
 }
 
-@media (max-width: 768px) {
-  .navbar a {
-      display: block;
-      margin: 10px 0;
-  }
+.login-container {
+  display: grid;
+  width: 500px!important;
+  align-items: center;
+  gap: 42px;
+  height: 100%;
+  background: aliceblue;
+}
 
-  .header h1 {
-      font-size: 28px;
-  }
+.login-form {
+  display: grid;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
 }

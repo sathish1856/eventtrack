@@ -1,19 +1,25 @@
 // src/components/Welcome.js
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { trackPageViewEvent } from '../utils/tracker';
+import './Welcome.css'; // Import the CSS file for styling
+import { useAuth } from './AuthContext';
 
 const Welcome = () => {
     const location = useLocation();
-    const { authInfo } = location.state || {}; // Destructure authInfo from location.state
+    //const { authInfo } = location.state || {}; // Destructure authInfo from location.state
+    const { authInfo } = useAuth();
+    useEffect(() => {
+        trackPageViewEvent("welcomeScreen");
+    }, []);
 
     return (
         <div className="container">
-            <h2>Welcome Page</h2>
-            <nav className="navbar">
-                <Link to="/form">Form</Link>
-                {authInfo === 'admin' && <Link to="/admin">Admin Dashboard</Link>}
-            </nav>
+            <div className="button-group">
+                <Link to="/form" className="btn">Form</Link>
+                {authInfo === 'admin' && <Link to="/admin" className="btn">Admin Dashboard</Link>}
+               
+            </div>
         </div>
     );
 };
