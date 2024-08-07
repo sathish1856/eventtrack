@@ -53,7 +53,7 @@ const FormPage = () => {
                     <label>Email</label>
                     <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit"  className="btn btn-primary">Submit</button>
             </form>
         </div>
     );

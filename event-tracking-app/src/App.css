@@ -49,3 +49,79 @@ h2 {
   gap: 12px;
   text-align: left;
 }
+
+.app.light {
+  background-color: #007bff;
+  color: #ffffff;
+  padding: 15px;
+}
+
+.app.dark {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 15px;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+
+.theme-toggle__text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.theme-toggle__switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 24px;
+}
+
+.theme-toggle__input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.theme-toggle__slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 24px;
+}
+
+.theme-toggle__slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+.theme-toggle__input:checked + .theme-toggle__slider {
+  background-color: #2196F3;
+}
+
+.theme-toggle__input:checked + .theme-toggle__slider:before {
+  transform: translateX(24px);
+}
+.myHeader {
+  font-weight: 500;
+  margin-top: 0;
+  line-height: 1.2;
+
+}
