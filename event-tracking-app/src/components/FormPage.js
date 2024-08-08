@@ -1,30 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { trackCustomEvent } from '../utils/tracker';
-import { trackPageViewEvent } from '../utils/tracker';
+import React, { useEffect, useState } from 'react';
 import { storeEvent } from '../services/api';
-import { fetchIpAddress } from '../utils/tracker';
+import { fetchIpAddress, trackCustomEvent, trackPageViewEvent } from '../utils/tracker';
 
 const FormPage = () => {
     const [name, setName] = useState('');
     const [age, setAge] = useState('');
     const [email, setEmail] = useState('');
-    const navigate = useNavigate();
 
     useEffect(() => {
         trackPageViewEvent("Form Screen");
     }, []);
 
     const handleSubmit = async (e) => {
-        console.log(name + email);
           trackCustomEvent('Form Page', 'Form Submission', name, email);
-          const userAgent = 'Chrome';
+          const userAgent = navigator.userAgent;
           const ipAddress = await fetchIpAddress();
   
           const eventData = {
               timestamp: new Date().toISOString(), 
               ipaddress: ipAddress,
-              useragent: userAgent,
+              useragent: userAgent ? userAgent : 'unknown',
               event_values: 'Form submission',
               userid: 1234 
           };
@@ -34,13 +29,12 @@ const FormPage = () => {
         setName('');
         setAge('');
         setEmail('');
-        navigate('/form'); 
     };
 
     return (
         <div className="container login-container">
             <h2>Application Form</h2>
-            <form onSubmit={handleSubmit} className="login-form">
+            <div className="login-form">
                 <div className="form-group">
                 <label>Name</label>
                     <input type="text" className="form-control" value={name} onChange={(e) => setName(e.target.value)} required />
@@ -53,8 +47,8 @@ const FormPage = () => {
                     <label>Email</label>
                     <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
-                <button type="submit"  className="btn btn-primary">Submit</button>
-            </form>
+                <button onClick={handleSubmit} className="btn btn-primary">Submit</button>
+            </div>
         </div>
     );
 };
